@@ -19,21 +19,19 @@ from itertools import islice
 
 
 """Driver method"""
-def maximize(matrix_in, base, side):
+def maximize(matrix, base, side):
     # pattern for a baseline valid solution
-    matrix = copy.deepcopy(matrix_in)
-    counter=0
-    for i in range(9):
-        for j in range(9):
-            if matrix[i][j]==0:
-                counter+=1
     matrix = np.array(matrix, dtype=int)
     # num of cols in sub grid
+    rand = random.randint(1,side)
     for i in range(side):
         for j in range(side):
             # num of rows in sub grid
-            if matrix[i][j]==0: continue
-            matrix[i][j] = 0
+            randi = (rand + i)%side
+            randj = (rand + j)%side
+            if matrix[randi][randj]==0: continue
+            value_before = matrix[randi][randj]
+            matrix[randi][randj] = 0
 
             # get solution_list from the class
             solution_list = Sudoku(matrix.copy(),
@@ -41,7 +39,8 @@ def maximize(matrix_in, base, side):
                 box_col=base).get_solution()
             #print('solved')
             if len(solution_list)==1: 
-                return matrix
-
-            matrix[i][j] = matrix_in[i][j]
+                print('positions',randi,randj)
+                yield matrix
+            else:
+                matrix[randi][randj] = value_before
     return None

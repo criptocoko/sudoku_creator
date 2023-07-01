@@ -47,12 +47,11 @@ if __name__ == '__main__':
     squares = side*side
     ratio = 0.1/base #make the denominator bigger to have less max ceros, it makes loop stop earlier and make board easier
     min_ceros = int(squares * (1-base/10))
-    print('square:', squares)
+    print('squares:', squares)
     print('starting ceros:', min_ceros)
     max_ceros = int(squares * (1-base/10+ratio))
     print("loop until find board with:",max_ceros,"ceros, if can't reach start again")
     ceros=0
-    #exit(1)
     while ceros<max_ceros:
 
         # pattern for a baseline valid solution
@@ -122,11 +121,10 @@ if __name__ == '__main__':
         print('Found a base board with only 1 solution with:',count_zeros(matrix,side),'ceros, now we try to increase it until we reach:',max_ceros,'ceros')
 
         #count number of ceros in board
-        while type(matrix)==np.ndarray:
-            matrix = maximize(matrix, base, side)
-            if type(matrix)==np.ndarray:
-                print('Found a harder board:')
-                print_board(matrix)
-                print("\n Program stops when it finds board with at least:",max_ceros,"ceros and next board has more than 1 solution\n. If it can't reach it, it starts again with new base board.\n. Stop program if max_ceros is too high")
-                ceros= count_zeros(matrix,side)
-                print('Current ceros:',ceros)
+        generator = maximize(matrix, base, side)
+        for board in generator:
+            print('Found a harder board:')
+            print_board(board)
+            print("\n Program stops when it finds board with at least:",max_ceros,"ceros and next board has more than 1 solution\n. If it can't reach it, it starts again with new base board.\n. Stop program if max_ceros is too high")
+            ceros= count_zeros(board,side)
+            print('Current ceros:',ceros)
