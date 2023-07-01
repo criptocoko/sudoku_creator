@@ -15,98 +15,119 @@ import numpy as np
 from Sudoku.sudoku import Sudoku
 import random
 import copy
-from itertools import islice
-
-
+from maximize0 import maximize
+import sys
 """Driver method"""
-base  = 4
-side  = base*base
-
-# pattern for a baseline valid solution
-def pattern(r,c): return (base*(r%base)+r//base+c)%side
-
-# randomize rows, columns and numbers (of valid base pattern)
-from random import sample
-def shuffle(s): return sample(s,len(s)) 
-rBase = range(base) 
-rows  = [ g*base + r for g in shuffle(rBase) for r in shuffle(rBase) ] 
-cols  = [ g*base + c for g in shuffle(rBase) for c in shuffle(rBase) ]
-nums  = shuffle(range(1,base*base+1))
-
-# produce board using randomized baseline pattern
-realsolution = [ [nums[pattern(r,c)] for c in cols] for r in rows ]
-print('solution is:')
-for line in realsolution: print(line)
-
-board = copy.deepcopy(realsolution)
-squares = side*side
-empties = squares * 3//4
-for p in sample(range(squares),empties):
-    board[p//side][p%side] = 0
-
-numSize = len(str(side))
-# for line in board: print(line)
-# note start time
-start = time()
-matrix=board
-while True:
-# input the puzzle
-    matrix = np.array(matrix, dtype=int)
-    # num of rows in sub grid
-    num_rows_sub_grid = base
-    # num of cols in sub grid
-    num_cols_sub_grid = num_rows_sub_grid
-
-    # get solution_list from the class
-    solution_list  = [*islice(Sudoku(matrix.copy(),
-        box_row=num_rows_sub_grid,
-        box_col=num_cols_sub_grid).get_solution(),2)]
-    if len(solution_list)==1: break
-    diffPos = [(r,c) for r in range(side) for c in range(side)
-            if solution_list[0][r][c] != solution_list[1][r][c] ] 
-    r,c = random.choice(diffPos)
-    matrix[r][c] = realsolution[r][c]
-# get shape of the matrix
-rows, cols = matrix.shape
-# iterate through all the solutions
-print(solution_list)
-for sol_num, solution in enumerate(solution_list):
-    print("Solution Number {} -\n".format(sol_num + 1))
-    # iterate through rows
+def count_zeros(matrix_in, side):
+    counter=0
+    for i in range(side):
+        for j in range(side):
+            if matrix_in[i][j]==0:
+                counter+=1
+    return counter
+def print_board(board):
+    print(end='[')
     for i in range(rows):
-        # if sub grid rows are over
-        if i % num_rows_sub_grid == 0 and i != 0:
-            print('-' * (2 * (cols + num_rows_sub_grid - 1)))
+        print(end='[')
         # iterate through columns
         for j in range(cols):
             # if sub grid columns are over
-            if j % num_cols_sub_grid == 0 and j != 0:
-                print(end=' | ')
-            else:
-                print(end=' ')
             # print solution element
-            print(solution[i, j], end='')
-        # end row
+            print(board[i,j], end='')
+            print(end=',')
+        print(end='],')
         print()
-    print("\n")
-    # iterate through rows
-for sol_num, board_found in enumerate([board]):
-    print("Board found Number {} -\n".format(sol_num + 1))
-    for i in range(rows):
-        # if sub grid rows are over
-        if i % num_rows_sub_grid == 0 and i != 0:
-            print('-' * (2 * (cols + num_rows_sub_grid - 1)))
-        # iterate through columns
-        for j in range(cols):
-            # if sub grid columns are over
-            if j % num_cols_sub_grid == 0 and j != 0:
-                print(end=' | ')
-            else:
-                print(end=' ')
-            # print solution element
-            print(board_found[i][j], end='')
-        print()
-        
-# time taken to solve
-print("\nSolved in {} s".format(round(time() - start, 4)))
-# Key Value Error raised if solution not possible
+    print(end=']')
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print('Usage: python3 cli_main.py <base>, ex: python3 cli_main.py 3 for classic 9x9 sudoku')
+        exit(1)
+    base  = int(sys.argv[1])
+    side  = base*base
+    squares = side*side
+    ratio = 0.1/base #make the denominator bigger to have less max ceros, it makes loop stop earlier and make board easier
+    min_ceros = int(squares * (1-base/10))
+    print('square:', squares)
+    print('starting ceros:', min_ceros)
+    max_ceros = int(squares * (1-base/10+ratio))
+    print("loop until find board with:",max_ceros,"ceros, if can't reach start again")
+    ceros=0
+    #exit(1)
+    while ceros<max_ceros:
+
+        # pattern for a baseline valid solution
+        def pattern(r,c): return (base*(r%base)+r//base+c)%side
+
+        # randomize rows, columns and numbers (of valid base pattern)
+        from random import sample
+        def shuffle(s): return sample(s,len(s)) 
+        rBase = range(base) 
+        rows  = [ g*base + r for g in shuffle(rBase) for r in shuffle(rBase) ] 
+        cols  = [ g*base + c for g in shuffle(rBase) for c in shuffle(rBase) ]
+        nums  = shuffle(range(1,base*base+1))
+
+        # produce board using randomized baseline pattern
+        realsolution = [ [nums[pattern(r,c)] for c in cols] for r in rows ]
+        print('solution is:')
+        for line in realsolution: print(line)
+
+        board = copy.deepcopy(realsolution)
+        for p in sample(range(squares),min_ceros):
+            board[p//side][p%side] = 0
+        for line in board: print(line)
+
+        numSize = len(str(side))
+        # for line in board: print(line)
+        # note start time
+        matrix=board
+        num_rows_sub_grid = base
+        # num of cols in sub grid
+        num_cols_sub_grid = num_rows_sub_grid
+        start = time()
+        while True:
+        # input the puzzle
+            matrix = np.array(matrix, dtype=int)
+            # num of rows in sub grid
+
+            # get solution_list from the class
+            solution_list = Sudoku(matrix.copy(),
+                box_row=num_rows_sub_grid,
+                box_col=num_cols_sub_grid).get_solution()
+            if len(solution_list)==1: break
+            diffPos = [(r,c) for r in range(side) for c in range(side)
+                    if solution_list[0][r][c] != solution_list[1][r][c] ] 
+            r,c = random.choice(diffPos)
+            matrix[r][c] = realsolution[r][c]
+        # get shape of the matrix
+        rows, cols = matrix.shape
+        # iterate through all the solutions
+        for sol_num, solution in enumerate(solution_list):
+            print("Solution Number {} -\n".format(sol_num + 1))
+            # iterate through rows
+            for i in range(rows):
+                # if sub grid rows are over
+                if i % num_rows_sub_grid == 0 and i != 0:
+                    print('-' * (2 * (cols + num_rows_sub_grid - 1)))
+                # iterate through columns
+                for j in range(cols):
+                    # if sub grid columns are over
+                    if j % num_cols_sub_grid == 0 and j != 0:
+                        print(end=' | ')
+                    else:
+                        print(end=' ')
+                    # print solution element
+                    print(solution[i, j], end='')
+                # end row
+                print()
+            print("\n")
+            # iterate through rows
+        print('Found a base board with only 1 solution with:',count_zeros(matrix,side),'ceros, now we try to increase it until we reach:',max_ceros,'ceros')
+
+        #count number of ceros in board
+        while type(matrix)==np.ndarray:
+            matrix = maximize(matrix, base)
+            if type(matrix)==np.ndarray:
+                print_board(matrix)
+                print("\n Program stops when it finds board with at least:",max_ceros,"ceros and next board has more than 1 solution\n. If it can't reach it, it starts again with new base board.\n. Stop program if max_ceros is too high")
+                ceros= count_zeros(matrix,side)
+                print('Current ceros:',ceros)
