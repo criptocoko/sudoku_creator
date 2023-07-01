@@ -19,9 +19,7 @@ from itertools import islice
 
 
 """Driver method"""
-def maximize(matrix_in, base):
-    side  = base*base
-
+def maximize(matrix_in, base, side):
     # pattern for a baseline valid solution
     matrix = copy.deepcopy(matrix_in)
     counter=0
@@ -31,8 +29,8 @@ def maximize(matrix_in, base):
                 counter+=1
     matrix = np.array(matrix, dtype=int)
     # num of cols in sub grid
-    for i in range(9):
-        for j in range(9):
+    for i in range(side):
+        for j in range(side):
             # num of rows in sub grid
             if matrix[i][j]==0: continue
             matrix[i][j] = 0

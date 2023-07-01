@@ -74,10 +74,8 @@ if __name__ == '__main__':
         board = copy.deepcopy(realsolution)
         for p in sample(range(squares),min_ceros):
             board[p//side][p%side] = 0
+        print('trying to solve for base sudoku:')
         for line in board: print(line)
-
-        numSize = len(str(side))
-        # for line in board: print(line)
         # note start time
         matrix=board
         num_rows_sub_grid = base
@@ -125,8 +123,9 @@ if __name__ == '__main__':
 
         #count number of ceros in board
         while type(matrix)==np.ndarray:
-            matrix = maximize(matrix, base)
+            matrix = maximize(matrix, base, side)
             if type(matrix)==np.ndarray:
+                print('Found a harder board:')
                 print_board(matrix)
                 print("\n Program stops when it finds board with at least:",max_ceros,"ceros and next board has more than 1 solution\n. If it can't reach it, it starts again with new base board.\n. Stop program if max_ceros is too high")
                 ceros= count_zeros(matrix,side)
