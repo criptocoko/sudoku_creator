@@ -131,7 +131,6 @@ class Sudoku:
                 if self.matrix[i, j] != 0:
                     # remove associated values from the solution space
                     self.cover_column(rows, cols, (i, j, self.matrix[i, j]))
-
         # iterate through the solutions
         for solution in self.solve(rows, cols, []):
             # iterate through coordinates and there values
@@ -142,6 +141,8 @@ class Sudoku:
             solutions.append(self.matrix)
             # reset the matrix to the initial matrix
             self.matrix = self.init_matrix.copy()
+            if len(solutions)==2:
+                return solutions
         # return the list of solutions
         return solutions
 
