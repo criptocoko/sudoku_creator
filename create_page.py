@@ -106,11 +106,11 @@ class SudokuImageGenerator:
     def generate_page(self, puzzles, output_path, page_number, difficulty):
         """Generate a page with either one or two sudoku boards"""
         # Create new image with white background
-        img = Image.new('RGB', (self.page_width, self.page_height), self.bg_color)
+        img = Image.new('RGB', (self.page_width, self.page_height), self.lighten_color(self.difficulty_bg_colors[difficulty.lower()]))
         draw = ImageDraw.Draw(img)
 
         # Draw background waves
-        self.draw_waves(draw, self.page_width, self.page_height)
+        #self.draw_waves(draw, self.page_width, self.page_height)
 
         # Calculate exact vertical positions
         # The formula is: padding + grid + padding + grid + padding = page_height
@@ -201,6 +201,8 @@ class SudokuImageGenerator:
         # Create new image with white background
         img = Image.new('RGB', (self.page_width, self.page_height), self.bg_color)
         draw = ImageDraw.Draw(img)
+        # paint the background
+        
 
         # Draw background waves
         self.draw_waves(draw, self.page_width, self.page_height)
