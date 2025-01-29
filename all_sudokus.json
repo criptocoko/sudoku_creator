@@ -1,6 +1,11 @@
 {
     "puzzles": [
         {
+            "skip": true
+        },{
+            "skip": true
+        },
+        {
             "puzzle_id": "sudoku_001",
             "size": "9x9",
             "difficulty_level": "EASY",
@@ -4991,6 +4996,10 @@
                     1
                 ]
             ]
+        },{
+            "skip": true
+        },{
+            "skip": true
         },
         {
             "puzzle_id": "sudoku_001",
@@ -9985,6 +9994,11 @@
             ]
         },
         {
+            "skip": true
+        },{
+            "skip": true
+        },
+        {
             "puzzle_id": "sudoku_001",
             "size": "9x9",
             "difficulty_level": "HARD",
@@ -14975,6 +14989,11 @@
                     8
                 ]
             ]
+        }
+        ,{
+            "skip": true
+        },{
+            "skip": true
         },
         {
             "puzzle_id": "sudoku_001",
@@ -19967,6 +19986,11 @@
                     9
                 ]
             ]
+        }
+        ,{
+            "skip": true
+        },{
+            "skip": true
         },
         {
             "puzzle_id": "sudoku_001",

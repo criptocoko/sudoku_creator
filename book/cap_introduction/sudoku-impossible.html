@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku - Impossible Level</title>
+    <link rel="stylesheet" href="shared-styles.css">
+    <style>
+        .difficulty-header { 
+            background: linear-gradient(135deg, var(--impossible-color), #7B1FA2);
+        }
+        .technique { border-left-color: var(--impossible-color); }
+        .tip { color: var(--impossible-color); }
+    </style>
+</head>
+<body>
+    <div class="difficulty-header">
+        <div class="header-content">
+            <svg viewBox="0 0 200 200" class="illustration" xmlns="http://www.w3.org/2000/svg">
+                <!-- Face circle -->
+                <circle cx="100" cy="100" r="90" fill="#FFD700"/>
+                
+                <!-- Sunglasses -->
+                <path d="M45 85 L155 85" stroke="black" stroke-width="5"/>
+                <rect x="45" y="85" width="40" height="25" fill="black" rx="5"/>
+                <rect x="115" y="85" width="40" height="25" fill="black" rx="5"/>
+                
+                <!-- Cool smile -->
+                <path d="M60 120 Q100 150 140 120" fill="none" stroke="black" stroke-width="5"/>
+                
+                <!-- Temple pieces of sunglasses -->
+                <path d="M45 85 L35 95" stroke="black" stroke-width="5"/>
+                <path d="M155 85 L165 95" stroke="black" stroke-width="5"/>
+            </svg>
+            <div class="header-text">
+                <h1>Impossible Level</h1>
+                <p>The ultimate challenge</p>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <p>Welcome to techniques so advanced, even some Sudoku masters scratch their heads:</p>
+        <div class="technique">
+            <h2>Alternating Inference Chains (The Domino Effect)</h2>
+            <p>Imagine a chain of cells where each cell is connected to the next by a shared possible number. If you can make the chain return to the start, you can make some powerful deductions! It's like playing connect-the-dots, but with numbers, and in your mind.</p>
+        </div>
+        <div class="technique">
+            <h2>Nishio (The Leap of Faith)</h2>
+            <p>When all else fails, try this: Pick a cell with only two possibilities, assume one is correct, and follow the logic. If you hit a contradiction, your assumption was wrong - use the other number! It's like being a detective who tests theories to solve the crime.</p>
+        </div>
+
+        <div class="tip">
+            <p>Remember: At this level, it's perfectly normal to stare at the puzzle for so long that your family stages an intervention. Just explain to them that you're not obsessed - you're dedicated to science!</p>
+        </div>
+    </div>
+    <!-- Rest of the content remains the same -->
+</body>
+</html>

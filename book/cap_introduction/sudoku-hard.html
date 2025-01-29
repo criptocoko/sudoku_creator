@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku - Hard Level</title>
+    <link rel="stylesheet" href="shared-styles.css">
+    <style>
+        .difficulty-header { 
+            background: linear-gradient(135deg, var(--hard-color), #F57C00);
+        }
+        .technique { border-left-color: var(--hard-color); }
+        .tip { color: var(--hard-color); }
+    </style>
+</head>
+<body>
+    <div class="difficulty-header">
+        <div class="header-content">
+            <svg class="illustration" viewBox="0 0 100 100">
+                <path d="M20 20 H80 V80 H20 Z" fill="none" stroke="white" stroke-width="3"/>
+                <path d="M35 20 V80 M50 20 V80 M65 20 V80" stroke="white" stroke-width="2"/>
+                <path d="M20 35 H80 M20 50 H80 M20 65 H80" stroke="white" stroke-width="2"/>
+                <rect x="35" y="35" width="15" height="15" fill="white" opacity="0.3"/>
+                <rect x="50" y="50" width="15" height="15" fill="white" opacity="0.3"/>
+            </svg>
+            <div class="header-text">
+                <h1>Hard Level</h1>
+                <p>Welcome to the big leagues</p>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <p> Time to put on your thinking cap and learn some techniques that will make your friends think you're a Sudoku wizard:</p>
+        <div class="technique">
+            <h2> X-Wing (The Square Dance)</h2>
+            <p> Picture this: You find number 4 can only go in two spots in two different rows, and these spots line up in the same columns. You've found an X-Wing! These four cells form a rectangle, and the number must be in two of these spots - one in each row. This means you can eliminate that number as a possibility from any other cells in those columns.</p>
+        </div>
+        <div class="technique">
+            <h2>Hidden Pairs (The Sneaky Duo)</h2>
+            <p> Unlike regular pairs where two cells can only be two numbers, hidden pairs are trickier. You might see two cells that could contain several numbers, but they're the only cells that can contain two specific numbers. Those two cells MUST contain those two numbers, even though they look like they have more options!</p>
+        </div>
+    </div>  
+</body>
+</html>

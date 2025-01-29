@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku - Extreme Level</title>
+    <link rel="stylesheet" href="shared-styles.css">
+    <style>
+        .difficulty-header { 
+            background: linear-gradient(135deg, var(--extreme-color), #C2185B);
+        }
+        .technique { border-left-color: var(--extreme-color); }
+        .tip { color: var(--extreme-color); }
+    </style>
+</head>
+<body>
+    <div class="difficulty-header">
+        <div class="header-content">
+            <svg class="illustration" viewBox="0 0 100 100">
+                <path d="M50,20 L70,40 L50,40 L60,60 L40,60 L50,80" 
+                      fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="50" cy="50" r="30" fill="none" stroke="white" stroke-width="2" opacity="0.5"/>
+                <path d="M30,30 L70,70 M30,70 L70,30" stroke="white" stroke-width="2" opacity="0.3"/>
+            </svg>
+            <div class="header-text">
+                <h1>Extreme Level</h1>
+                <p>Push your limits</p>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <p>These techniques separate the Sudoku masters from the merely talented:</p>
+        <div class="technique">
+            <h2>Swordfish (The Triple Threat)</h2>
+            <p>Like X-Wing but with three rows and three columns. When you find a number that can only appear in 2-3 cells in each of three different rows, and these cells line up in three columns, you've found a Swordfish! This means the number must appear in three of these nine cells, one in each row.</p>
+        </div>
+        <div class="technique">
+            <h2>XY-Wing (The Three Amigos)</h2>
+            <p>Find three cells: one with options AB, another with BC, and a third with AC (where A, B, and C are different numbers). If they're connected properly, you can eliminate C from any cells that see both the AC and BC cells!</p>
+        </div>
+    </div>
+</body>
+</html>

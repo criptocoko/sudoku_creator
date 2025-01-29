@@ -6,3 +6,6 @@
 /.idea
 /last_loaded.npy
 /last_loaded_dim.npy
+
+# fonts
+*.ttf

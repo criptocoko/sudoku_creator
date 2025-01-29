@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku - Medium Level</title>
+    <link rel="stylesheet" href="shared-styles.css">
+    <style>
+        .difficulty-header { 
+            background: linear-gradient(135deg, var(--medium-color), #1976D2);
+        }
+        .technique { border-left-color: var(--medium-color); }
+        .tip { color: var(--medium-color); }
+    </style>
+</head>
+<body>
+    <div class="difficulty-header">
+        <div class="header-content">
+            <svg class="illustration" viewBox="0 0 100 100">
+                <rect x="20" y="20" width="60" height="60" fill="none" stroke="white" stroke-width="3"/>
+                <path d="M20 40 H80 M20 60 H80" stroke="white" stroke-width="3"/>
+                <path d="M40 20 V80 M60 20 V80" stroke="white" stroke-width="3"/>
+                <circle cx="40" cy="40" r="8" fill="white"/>
+                <circle cx="60" cy="60" r="8" fill="white"/>
+            </svg>
+            <div class="header-text">
+                <h1>Medium Level</h1>
+                <p>Time to level up your game!</p>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <p> Ready to add some spice to your Sudoku life? These techniques will make those numbers dance to your tune:</p>
+        
+        <div class="technique">
+            <h2>1. Pairs and Triplets (Number Buddies)</h2>
+            <p>Sometimes two cells in the same row, column, or box can only contain the same two numbers (like 4 and 7). These are called 'pairs' - they're like best friends who won't let any other numbers sit with them. This means those two numbers can't appear anywhere else in that row, column, or box!</p>
+            <p>Example: If two cells in a row can only be 4 or 7, and you find a third cell that could be 4, 7, or 9 - guess what? It must be 9!</p>
+        </div>
+
+        <div class="technique">
+            <h2>2. Box/Line Reduction (The Line Dance)</h2>
+            <p>When a number can only appear in two or three cells within a box, AND those cells all line up in the same row or column, that number can't appear anywhere else in that row or column outside the box.</p>
+            <p>Think of it like this: if a box has three possible spots for a 6, all in the same row, then that 6 HAS to be in one of those spots. Therefore, 6 can't appear anywhere else in that row outside the box!</p>
+        </div>
+    </div>
+    
+</body>
+</html>

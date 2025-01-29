@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku - Introduction</title>
+    <link rel="stylesheet" href="shared-styles.css">
+    <style>
+        .difficulty-header { 
+            background: linear-gradient(135deg, var(--easy-color), #45a049);
+        }
+        .technique { border-left-color: var(--easy-color); }
+        .tip { color: var(--easy-color); }
+    </style>
+</head>
+<body>
+    <div class="difficulty-header">
+        <div class="header-content">
+            <svg class="illustration" viewBox="0 0 100 100">
+                <rect x="10" y="10" width="80" height="80" fill="none" stroke="white" stroke-width="4"/>
+                <path d="M10 37 H90 M10 63 H90" stroke="white" stroke-width="4"/>
+                <path d="M37 10 V90 M63 10 V90" stroke="white" stroke-width="4"/>
+                <text x="50" y="50" text-anchor="middle" fill="white" font-size="12" font-weight="bold">1-9</text>
+            </svg>
+            <div class="header-text">
+                <h1>Welcome to Sudoku!</h1>
+                <p>Your journey to puzzle mastery starts here</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content">
+        <p>Welcome, brave number warrior! Before diving into techniques, remember the golden rule: each row, column, and 3x3 box must contain numbers 1-9 without repeats. Now, let's learn your first weapons of choice:</p>
+        
+        <div class="technique">
+            <h2>1. Single Position (Lone Rangers)</h2>
+            <p>Imagine you're filling in a row and notice there's only one empty spot where an 8 could possibly go. That's your Single Position! Look at what numbers are already in the row, column, and box affecting that cell. If only one number fits - bingo! It's like finding the last pizza slice that nobody claimed.</p>
+        </div>
+
+        <div class="technique">
+            <h2>2. Single Candidate (Process of Elimination)</h2>
+            <p>When a cell has only one possible number that could fit, that's your answer! Check what numbers are already in the related row, column, and box. If only one number is left - you've struck gold! Think of it as musical chairs where only one number can sit.</p>
+        </div>
+
+        <div class="technique">
+            <h2>3. Simple Scanning</h2>
+            <p>Start with a number (let's say 1) and scan each row and column to see where it could fit. When you find a row or column with only one possible spot for that number - you've found its home! It's like playing 'Where's Waldo?' but way more organized.</p>
+        </div>
+
+        <div class="technique">
+            Remember: Take notes! Write tiny possible numbers in each empty cell. These 'pencil marks' are like your detective's notebook - they'll help you crack the case!
+        </div>
+    </div>
+</body>
+</html>
