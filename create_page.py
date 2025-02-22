@@ -189,7 +189,7 @@ class SudokuImageGenerator:
                 
                 # Draw the number (in the same position as before)
                 draw.text(
-                    (position_x - text_width//2, start_y),
+                    (position_x - text_width//2, start_y-5),
                     str(puzzle_number),
                     fill="black",
                     font=self.title_font
