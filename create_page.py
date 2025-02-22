@@ -28,15 +28,15 @@ class SudokuImageGenerator:
         
         # Try to load font
         try:
-            self.font = ImageFont.truetype("fonts/PlayfulTime-BLBB8.ttf", 30)
-            self.title_font = ImageFont.truetype("fonts/PlayfulTime-BLBB8.ttf", 50)
-            self.solution_font = ImageFont.truetype("fonts/PlayfulTime-BLBB8.ttf", 20)  # Smaller font for solutions
+            self.font = ImageFont.truetype("fonts/Roboto-Bold.ttf", 30)
+            self.title_font = ImageFont.truetype("fonts/Montserrat-Bold.ttf", 50)
+            self.solution_font = ImageFont.truetype("fonts/Roboto-Bold.ttf", 20)  # Smaller font for solutions
         except:
             self.font = ImageFont.load_default()
             self.title_font = ImageFont.load_default()
             self.solution_font = ImageFont.load_default()
 
-    def lighten_color(self, hex_color, factor=0.6):
+    def lighten_color(self, hex_color, factor=0.8):
         """Lightens the given color by converting it to HLS and increasing the lightness."""
         hex_color = hex_color.lstrip('#')
         r, g, b = tuple(int(hex_color[i:i+2], 16) / 255.0 for i in (0, 2, 4))
@@ -93,11 +93,13 @@ class SudokuImageGenerator:
         draw.line([(self.padding, footer_height), (self.page_width//2-self.padding, footer_height)], fill="black", width=5)
         # footer line 2
         draw.line([(self.page_width//2 + self.padding, footer_height), (self.page_width - self.padding, footer_height)], fill="black", width=5)
-
+        page_number_str = str(page_number)
+        text_bbox = draw.textbbox((0, 0), page_number_str, font=self.title_font)
+        text_width = text_bbox[2] - text_bbox[0]
         # write the page number
         draw.text(
-            (self.page_width//2, self.page_height - self.padding//1.2),
-            str(page_number),
+            (self.page_width//2-text_width/len(page_number_str), self.page_height - self.padding//1.2),
+            page_number_str,
             fill="black",
             font=self.title_font
         )
@@ -143,6 +145,7 @@ class SudokuImageGenerator:
         title_bbox = draw.textbbox((0, 0), title, font=self.title_font)
         title_height = title_bbox[3] - title_bbox[1]
         title_y = top_grid_y + self.grid_size + (actual_padding - title_height) // 2
+       
         draw.text(
             (self.padding, title_y),
             title,
