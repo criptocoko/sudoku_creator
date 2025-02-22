@@ -26,11 +26,11 @@ class SudokuImageGenerator:
             "impossible": "#7B1FA2"
         }
         
-        # Try to load font
+        # Modify font sizes to be larger
         try:
-            self.font = ImageFont.truetype("fonts/Roboto-Bold.ttf", 30)
-            self.title_font = ImageFont.truetype("fonts/Montserrat-Bold.ttf", 50)
-            self.solution_font = ImageFont.truetype("fonts/Roboto-Bold.ttf", 20)  # Smaller font for solutions
+            self.font = ImageFont.truetype("fonts/Roboto-Bold.ttf", 48)  # Increased from 30
+            self.title_font = ImageFont.truetype("fonts/Montserrat-Bold.ttf", 52)
+            self.solution_font = ImageFont.truetype("fonts/Roboto-Bold.ttf", 30)  # Increased from 20
         except:
             self.font = ImageFont.load_default()
             self.title_font = ImageFont.load_default()
@@ -58,7 +58,8 @@ class SudokuImageGenerator:
         grid_size = cell_size * 9
         
         for i in range(10):
-            line_width = 2 if i % 3 == 0 else 1
+            # Increase the line width for 3x3 grid borders
+            line_width = 4 if i % 3 == 0 else 1  # Changed from 2 to 4
             # Vertical lines
             draw.line([(start_x + i * cell_size, start_y),
                       (start_x + i * cell_size, start_y + grid_size)],
@@ -83,8 +84,8 @@ class SudokuImageGenerator:
                     text_width = text_bbox[2] - text_bbox[0]
                     text_height = text_bbox[3] - text_bbox[1]
                     x = start_x + col * cell_size + (cell_size - text_width) // 2
-                    y = start_y + row * cell_size + (cell_size - text_height) // 2 - text_height//4
-                    draw.text((x, y), str(number), fill="black", font=font)
+                    y = start_y + row * cell_size + (cell_size - text_height) // 2 - text_height//2
+                    draw.text((x+1, y), str(number), fill="black", font=font)
 
     def generage_footer(self, draw, page_number):
         """Generate the footer for the page"""
@@ -212,12 +213,12 @@ class SudokuImageGenerator:
         self.draw_waves(draw, self.page_width, self.page_height)
 
         # Calculate cell size for solutions (larger than before)
-        solution_cell_size = 35  # Increased from 25
+        solution_cell_size = 50  # Increased from 25
         solution_grid_size = solution_cell_size * 9
         
         # Calculate spacing
         horizontal_spacing = (self.page_width - (3 * solution_grid_size)) // 4
-        vertical_spacing = (self.page_height - (3 * solution_grid_size) - self.padding * 2) // 4
+        vertical_spacing = (self.page_height - (4 * solution_grid_size) - self.padding * 2) // 5
 
         # Draw title
         title = f"Solutions {start_puzzle_num}-{start_puzzle_num + len(solutions) - 1}"
@@ -235,7 +236,7 @@ class SudokuImageGenerator:
 
         # Draw solutions in 3x3 grid
         for i, solution in enumerate(solutions):
-            if i >= 9:  # Maximum 9 solutions per page
+            if i >= 12:  # Maximum 9 solutions per page
                 break
                 
             row = i // 3
@@ -286,11 +287,14 @@ def main():
             break
 
     # Generate solution pages
-    solutions_per_page = 9
-    
-    for i in range(0, len(puzzles), solutions_per_page):
-        solutions_batch = [puzzle['solution'] for puzzle in puzzles[i:i + solutions_per_page] if 'skip' not in puzzle]
-        if solutions_batch:
+    solutions_per_page = 12
+    filtered_solutions = [puzzle['solution'] for puzzle in puzzles if 'skip' not in puzzle]
+
+    counter_page = 1
+    for i in range(0, len(filtered_solutions), solutions_per_page):
+        solutions_batch = filtered_solutions[i:i + solutions_per_page]
+        
+        if solutions_batch:  # Ensure there's something to process
             generator.generate_solution_page(
                 solutions_batch,
                 i + 1,  # Start puzzle number
@@ -298,6 +302,7 @@ def main():
                 f'book/page_sol_{counter_page}.png'
             )
             counter_page += 1
+
 
 if __name__ == "__main__":
     main()
