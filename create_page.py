@@ -13,11 +13,11 @@ class SudokuImageGenerator:
         self.wave_color = (198, 228, 223)  # Light teal for background waves
         
         # Define dimensions
-        self.cell_size = 50  # Size of each sudoku cell
+        self.cell_size = 100  # Size of each sudoku cell
         self.grid_size = self.cell_size * 9
-        self.padding = 100  # Padding around the page edges
-        self.page_width = 1000
-        self.page_height = 1400
+        self.padding = 150  # Padding around the page edges
+        self.page_width = 1800
+        self.page_height = 2700
         self.difficulty_bg_colors = {
             "easy": '#45a049',
             "medium": "#1976D2",
@@ -189,7 +189,7 @@ class SudokuImageGenerator:
                 
                 # Draw the number (in the same position as before)
                 draw.text(
-                    (position_x - text_width//2, start_y-5),
+                    (position_x - text_width//2, start_y-7),
                     str(puzzle_number),
                     fill="black",
                     font=self.title_font
@@ -197,7 +197,8 @@ class SudokuImageGenerator:
                 puzzle_number += 1
 
         # Save the image
-        img.save(output_path, 'PNG')
+        img.save(output_path, 'PNG', dpi=(300, 300))
+
 
     def generate_solution_page(self, solutions, start_puzzle_num, page_number, output_path):
         """Generate a page with 9 solution grids (3x3)"""
@@ -260,7 +261,7 @@ class SudokuImageGenerator:
         self.generage_footer(draw, page_number)
 
         # Save the image
-        img.save(output_path, 'PNG')
+        img.save(output_path, 'PNG', dpi=(300, 300))
 
 def main():
     # Load puzzle data from JSON

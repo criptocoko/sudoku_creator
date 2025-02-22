@@ -3,7 +3,7 @@ import math
 from typing import Tuple, List
 
 class BookCoverGenerator:
-    def __init__(self, width: int = 1200, height: int = 1800):
+    def __init__(self, width: int = 1800, height: int = 2700):
         self.WIDTH = width
         self.HEIGHT = height
         self.GOLDEN_RATIO = 1.618
@@ -26,13 +26,14 @@ class BookCoverGenerator:
         cell_size = size // cells
         
         # Draw grid lines
-        for i in range(cells + 1):
+        for i in range(cells):
             width = line_width * 2 if i % (int(math.sqrt(cells))) == 0 else line_width
             draw.line([(x, y + i*cell_size), (x + size, y + i*cell_size)], 
                      fill=color, width=width)
             draw.line([(x + i*cell_size, y), (x + i*cell_size, y + size)], 
                      fill=color, width=width)
-        
+        draw.line([(x, y + size), (x + size, y + size)], fill=color, width=2*width)  # Bottom edge
+        draw.line([(x + size, y), (x + size, y + size)], fill=color, width=2*width)  # Right edge
         # Optional: Fill some numbers for visual interest
         if fill_numbers:
             number_font = ImageFont.truetype("fonts/Roboto-Bold.ttf", int(cell_size * 0.6))
@@ -61,97 +62,47 @@ class BookCoverGenerator:
                     draw.rectangle([(x, y), (x+2, y+2)], fill=(200, 210, 255))
         
         # Title with enhanced typography
-        title_font = ImageFont.truetype("fonts/Montserrat-Bold.ttf", 120)
-        subtitle_font = ImageFont.truetype("fonts/Montserrat-SemiBold.ttf", 36)
+        title_font = ImageFont.truetype("fonts/Montserrat-Bold.ttf", 310)
+        subtitle_font = ImageFont.truetype("fonts/Montserrat-SemiBold.ttf", 75)
         
-        # Add subtle shadow effect to title
-        shadow_offset = 3
-        draw.text((103, 103), "SUDOKU", fill=(0, 0, 64, 100), font=title_font)
-        draw.text((100, 100), "SUDOKU", fill=(0, 0, 128), font=title_font)
+        draw.text((193, 113), "SUDOKU", fill=(0, 0, 64, 100), font=title_font)
+        draw.text((190, 110), "SUDOKU", fill=(0, 0, 128), font=title_font)
         
         # Subtitle with accent color
-        draw.text((100, 240), "MASTERMIND EDITION", fill=(70, 90, 180), font=subtitle_font)
+        draw.text((454, 480), "MASTERMIND EDITION", fill=(70, 90, 180), font=subtitle_font)
         
         # Feature text with custom styling
-        feature_font = ImageFont.truetype("fonts/Roboto-Regular.ttf", 28)
-        features = "74 CHALLENGING PUZZLES • 5 DIFFICULTY LEVELS • COMPLETE SOLUTIONS"
-        draw.text((100, 300), features, fill=(100, 100, 130), font=feature_font)
-        
+        feature_font = ImageFont.truetype("fonts/Roboto-Regular.ttf", 50)
         # Main decorative grid
-        self.draw_grid(draw, 150, 400, 900, 16, line_width=2, 
+        self.draw_grid(draw, 200, 850, 1400, 16, line_width=2, 
                       color=(0, 0, 90), fill_numbers=True)
         
         # Smaller accent grids
-        self.draw_grid(draw, 50, 1400, 200, 9, line_width=1, color=(70, 90, 180))
-        self.draw_grid(draw, 950, 1400, 200, 9, line_width=1, color=(70, 90, 180))
+        self.draw_grid(draw, 200, 500, 200, 9, line_width=1, color=(70, 90, 180))
+        self.draw_grid(draw, 1400, 500, 200, 9, line_width=1, color=(70, 90, 180))
+        feature1 = "120 CHALLENGING PUZZLES"
+        feature2 = "5 DIFFICULTY LEVELS"
+        draw.text((570, 580), feature1, fill=(100, 100, 130), font=feature_font)
+        draw.text((652, 630), feature2, fill=(100, 100, 130), font=feature_font)
+        self.draw_grid(draw, 200, 2400, 200, 9, line_width=1, color=(70, 90, 180))
+        self.draw_grid(draw, 1400, 2400, 200, 9, line_width=1, color=(70, 90, 180))
+        feature_font = ImageFont.truetype("fonts/Montserrat-SemiBold.ttf", 70)
+        feature3 = "WITH SOLUTIONS"
+        feature4 = "COMES WITH 5 EXTRA 16x16 PUZZLES"
+        draw.text((618, 2400), feature3, fill=(70, 90, 180), font=feature_font)
+        feature_font = ImageFont.truetype("fonts/Roboto-Regular.ttf", 50)
+
+        draw.text((457, 2500), feature4, fill=(100, 100, 130), font=feature_font)
+
         
+
         return cover
-
-    def create_back_cover(self) -> Image:
-        """Generate the back cover design"""
-        back = Image.new("RGB", (self.WIDTH, self.HEIGHT), (255, 255, 255))
-        draw = ImageDraw.Draw(back)
-        
-        # Subtle gradient background
-        gradient = self.create_gradient((250, 252, 255), (240, 244, 255), self.HEIGHT)
-        for y, color in enumerate(gradient):
-            draw.line([(0, y), (self.WIDTH, y)], fill=color)
-        
-        # Header
-        header_font = ImageFont.truetype("fonts/Montserrat-Bold.ttf", 48)
-        draw.text((100, 100), "Master the Art of Sudoku", fill=(0, 0, 128), font=header_font)
-        
-        # Description
-        desc_font = ImageFont.truetype("fonts/Roboto-Regular.ttf", 28)
-        description = """Embark on an exciting journey through 74 meticulously crafted Sudoku puzzles, 
-including five exceptional 16x16 grids that will push your skills to new heights. 
-
-This carefully curated collection features:"""
-        
-        draw.multiline_text((100, 200), description, fill=(60, 60, 90), 
-                           font=desc_font, spacing=40)
-        
-        # Feature boxes with icons
-        features = [
-            "🎯 Progressive difficulty system with color-coded levels",
-            "🧩 Special 16x16 grids for ultimate challenges",
-            "📝 Step-by-step solutions with detailed explanations",
-            "🎨 Clear, high-contrast design for easy solving",
-            "✨ Bonus techniques and strategies included"
-        ]
-        
-        feature_font = ImageFont.truetype("fonts/Roboto-Medium.ttf", 28)
-        for i, feature in enumerate(features):
-            y_pos = 400 + i * 80
-            draw.rectangle([(80, y_pos), (self.WIDTH-80, y_pos+60)], 
-                         fill=(245, 247, 255))
-            draw.text((100, y_pos+15), feature, fill=(60, 60, 90), font=feature_font)
-        
-        # Sample grid with some filled numbers
-        self.draw_grid(draw, 100, 900, 300, 9, line_width=2, 
-                      color=(70, 90, 180), fill_numbers=True)
-        
-        # Author bio placeholder
-        bio_font = ImageFont.truetype("fonts/Roboto-Italic.ttf", 24)
-        draw.text((500, 900), "Created by puzzle enthusiasts for puzzle enthusiasts", 
-                 fill=(100, 100, 130), font=bio_font)
-        
-        # ISBN and barcode area
-        draw.rectangle([(self.WIDTH-350, self.HEIGHT-200), 
-                       (self.WIDTH-100, self.HEIGHT-100)], fill=(240, 240, 240))
-        isbn_font = ImageFont.truetype("fonts/Roboto-Regular.ttf", 24)
-        draw.text((self.WIDTH-340, self.HEIGHT-180), "ISBN: 978-0-000000-0-0", 
-                 fill=(60, 60, 90), font=isbn_font)
-        
-        return back
 
 def main():
     generator = BookCoverGenerator()
     front_cover = generator.create_front_cover()
-    back_cover = generator.create_back_cover()
     
-    front_cover.save("sudoku_front_cover.png", "PNG", quality=95)
-    back_cover.save("sudoku_back_cover.png", "PNG", quality=95)
+    front_cover.save("book/covers/sudoku_front_cover.png", "PNG", quality=95)
     
 if __name__ == "__main__":
     main()

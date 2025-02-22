@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 import math
 
 # Setup
-WIDTH, HEIGHT = 1200, 1800
+WIDTH, HEIGHT = 1800, 2700
 BG_COLOR = (240, 240, 240)  # Light gray
 cover = Image.new("RGB", (WIDTH, HEIGHT), BG_COLOR)
 draw = ImageDraw.Draw(cover)
@@ -15,13 +15,13 @@ for y in range(HEIGHT):
     draw.line([(0, y), (WIDTH, y)], fill=gradient)
 
 # Title
-title_font = ImageFont.truetype("fonts/BebasNeue-Regular.ttf", 100)  # Download font from Google Fonts
+title_font = ImageFont.truetype("fonts/BebasNeue-Regular.ttf", 150)  # Download font from Google Fonts
 draw.text((100, 100), "SUDOKU MASTERMIND", fill=(0, 0, 64), font=title_font)
 
 # Subtitle
-sub_font = ImageFont.truetype("fonts/Lora-Regular.ttf", 24)
+sub_font = ImageFont.truetype("fonts/Lora-Regular.ttf", 36)
 sub_text = "74 Challenging Puzzles • 5 Levels of Difficulty • 16x16 Grids • Includes Solutions"
-draw.text((100, 220), sub_text, fill=(255, 200, 0), font=sub_font)
+draw.text((100, 260), sub_text, fill=(255, 200, 0), font=sub_font)
 
 # Sudoku Grid Background
 def draw_grid(x, y, size, cells, line_width=2):
@@ -32,7 +32,7 @@ def draw_grid(x, y, size, cells, line_width=2):
         draw.line([(x + i*cell_size, y), (x + i*cell_size, y + size)], fill=(0, 0, 0), width=width)
 
 # 16x16 grid (background)
-draw_grid(200, 400, 800, 16, line_width=1)
+draw_grid(200, 400, 1400, 16, line_width=1)
 
 # 9x9 grid overlay (foreground)
 draw_grid(500, 600, 300, 9, line_width=2)
@@ -79,5 +79,5 @@ back_draw.rectangle([(WIDTH-250, HEIGHT-150), (WIDTH-50, HEIGHT-50)], fill=(0, 0
 back_draw.text((WIDTH-230, HEIGHT-140), "ISBN Barcode Area", fill=(255, 255, 255), font=desc_font)
 
 # ===== SAVE RESULTS =====
-cover.save("book/sudoku_front_cover.png")
-back_cover.save("book/sudoku_back_cover.png")
+cover.save("covers/sudoku_front_cover.png")
+back_cover.save("covers/sudoku_back_cover.png")
