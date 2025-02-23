@@ -46,7 +46,7 @@ if __name__ == '__main__':
     side  = base*base
     squares = side*side
     ratio = 0.1/base #make the denominator bigger to have less max ceros, it makes loop stop earlier and make board easier
-    min_ceros = 270
+    min_ceros = 120
     print('squares:', squares)
     print('starting ceros:', min_ceros)
     max_ceros = 278
@@ -125,6 +125,7 @@ if __name__ == '__main__':
         for board in generator:
             print('Found a harder board:')
             print_board(board)
+            print_board(solution_list[0])
             print("\n Program stops when it finds board with at least:",max_ceros,"ceros and next board has more than 1 solution\n. If it can't reach it, it starts again with new base board.\n. Stop program if max_ceros is too high")
             ceros= count_zeros(board,side)
             if ceros>=max_ceros:
