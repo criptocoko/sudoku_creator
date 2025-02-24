@@ -11,6 +11,18 @@
         }
         .technique { border-left-color: var(--medium-color); }
         .tip { color: var(--medium-color); }
+        .highlight-box {
+            background-color: rgba(33, 150, 243, 0.1); /* Even lighter blue */
+            border: 2px dashed var(--medium-color); /* Dashed border for box */
+        }
+        .example-col {
+             background-color: rgba(76, 175, 80, 0.15); /* Light green */
+        }
+        .eliminated-candidate {
+            background: linear-gradient(to right top, transparent 47.75%, rgb(18 18 18)  49.5%, rgb(18 18 18) 50.5%, transparent 52.25%)
+            ,linear-gradient(to left top, transparent 47.75%, rgb(18 18 18)  49.5%, rgb(18 18 18) 50.5%, transparent 52.25%);
+        }
+
     </style>
 </head>
 <body>
@@ -24,26 +36,103 @@
                 <circle cx="60" cy="60" r="8" fill="white"/>
             </svg>
             <div class="header-text">
-                <h1>Medium Level</h1>
-                <p>Time to level up your game!</p>
+                <h1>Medium Sudoku Techniques</h1>
+                <p>Take your skills to the next level!</p>
             </div>
         </div>
     </div>
     <div class="content">
-        <p> Ready to add some spice to your Sudoku life? These techniques will make those numbers dance to your tune:</p>
-        
+        <p>You're getting good at finding Singles! Now, let's learn some new techniques.  Keep using those pencil marks – they're even more important now!</p>
+
         <div class="technique">
-            <h2>1. Pairs and Triplets (Number Buddies)</h2>
-            <p>Sometimes two cells in the same row, column, or box can only contain the same two numbers (like 4 and 7). These are called 'pairs' - they're like best friends who won't let any other numbers sit with them. This means those two numbers can't appear anywhere else in that row, column, or box!</p>
-            <p>Example: If two cells in a row can only be 4 or 7, and you find a third cell that could be 4, 7, or 9 - guess what? It must be 9!</p>
+            <h2>1. Naked Pairs and Triplets</h2>
+            <p>Look for two cells within the same row, column, or 3x3 box.  If both of these cells have only the same two numbers as candidates, those two numbers are a "Naked Pair."  This means those two numbers must go in those two cells, and you can remove them as candidates from all other cells in that row, column, or box.</p>
+            <p>The same idea works for <b>Naked Triplets</b>: three cells with only the same three candidates.</p>
         </div>
 
         <div class="technique">
-            <h2>2. Box/Line Reduction (The Line Dance)</h2>
-            <p>When a number can only appear in two or three cells within a box, AND those cells all line up in the same row or column, that number can't appear anywhere else in that row or column outside the box.</p>
-            <p>Think of it like this: if a box has three possible spots for a 6, all in the same row, then that 6 HAS to be in one of those spots. Therefore, 6 can't appear anywhere else in that row outside the box!</p>
+            <h2>2. Box/Line Reduction (Pointing Pairs/Triples)</h2>
+            <p>Focus on a single 3x3 box.  Look for a candidate that appears only along one row or one column within that box. If you find such a candidate, you can eliminate it from the rest of that row or column outside the box.</p>
+        </div>
+       <p>Let's explore a combined example to illustrate both techniques!</p>
+        <div id="centered-grid-medium" style="display: flex; justify-content: center;">
+           <div class="sudoku-grid">
+                <!-- Row 1 -->
+                <div class="highlight-box">
+                    <div class="candidates">
+                        <span>2</span>
+                        <span>4</span>
+                        <span>9</span>
+                    </div>
+                </div><div class="highlight-box">
+                    <div class="candidates">
+                        <span>1</span>
+                        <span>3</span>
+                    </div>
+                </div><div class="highlight-box">
+                    <div class="candidates">
+                        <span>2</span>
+                        <span class="eliminated-candidate">3</span>
+                        <span>4</span>
+                        <span>9</span>
+                    </div>
+                </div><div></div><div>6</div><div>7</div><div>5</div><div></div><div></div>
+                <!-- Row 2 -->
+                <div class="highlight-box">6</div><div class="highlight-box">
+                    <div class="candidates">
+                        <span>1</span>
+                        <span>3</span>
+                    </div>
+                </div><div class="highlight-box">7</div><div>5</div><div>8</div><div>2</div><div></div><div></div><div>4</div>
+                <!-- Row 3 -->
+                <div class="highlight-box">8</div><div class="highlight-box">5</div><div class="highlight-box">
+                    <div class="candidates">
+                        <span>2</span>
+                        <span class="eliminated-candidate">3</span>
+                        <span>4</span>
+                        <span>9</span>
+
+                    </div>
+                </div><div></div><div></div><div></div><div>1</div><div></div><div></div>
+                <!-- Row 4 -->
+                <div></div><div  class="example-col">9</div><div>5</div><div>6</div><div></div><div></div><div></div><div>7</div><div>1</div>
+                <!-- Row 5 -->
+                <div></div><div  class="example-col">8</div><div>1</div><div></div><div></div><div></div><div></div><div>4</div><div></div>
+                <!-- Row 6 -->
+                <div></div><div class="example-col">
+                    <div class="candidates">
+                        <span class="eliminated-candidate">3</span>
+                        <span>6</span>
+                    </div>
+                </div><div></div><div></div><div>7</div><div>1</div><div>9</div><div>2</div><div></div>
+                <!-- Row 7 -->
+                <div>1</div><div class="example-col">2</div><div>8</div><div></div><div></div><div></div><div></div><div>3</div><div></div>
+                <!-- Row 8 -->
+                <div>3</div>
+                <div  class="example-col"><div class="candidates">
+                    <span>6</span>
+                    <span>7</span>
+                </div>
+                </div><div>6</div><div>2</div><div></div><div>8</div><div>4</div><div></div><div></div>
+                <!-- Row 9 -->
+                <div>5</div><div class="example-col">4</div><div></div><div></div><div></div><div>6</div><div></div><div></div><div></div>
+            </div>
+        </div>
+        <p><b>Step 1: Finding Naked Pairs/Triplets (Using Pencil Marks)</b></p>
+        <p>First, fill in the pencil marks (candidates) for all empty cells. This is crucial for finding Naked Pairs/Triplets and for Box/Line Reduction. After you've filled them in, look carefully at the grid. It is important to imagine you are filling the candidates.</p>
+        <p>
+        After carefully reviewing and considering the candidates, we can spot a <b>Naked Pair</b>. In the <span class="highlight-box"> first box</span> we can see in 2nd column that the only candidates are 1 and 3( what is imporant is that they are the same for both cells), so we can eliminate them as candidates for the rest of the box.
+        </p>
+
+        <p><b>Step 2: Applying Box/Line Reduction (Using Pencil Marks)</b></p>
+        <p>
+        Now we can search a candidate inside a box that appears only on one col or one row. In the <span class="highlight-box">same first box</span> the number 3 appears only on <span class="example-col">column</span>, this tell us that the number must go one of those two cells, letting us eliminate it as a candidate from the rest of the second column. 
+        </p>
+        <p>So we can eliminate the number 3 from the rest of the second column.</p>
+
+        <div class="tip">
+        After finding all the Singles you can, look for Naked Pairs/Triplets and Box/Line Reduction.  These techniques often help you find more Singles! Remember to fill candidates first.
         </div>
     </div>
-    
 </body>
 </html>

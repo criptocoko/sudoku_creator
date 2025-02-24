@@ -133,17 +133,6 @@ body {
 .sudoku-grid > div:nth-child(n + 46):nth-child(-n + 54) {
     border-bottom: 6px solid black; /* Increased border */
 }
-/* You'll add your custom borders here later */
-.naked-single {
-  /* Add your border style here */
-}
-.hidden-single {
-  /* Add your border style here */
-}
-/* Inside shared-styles.css */
-
-/* ... (your existing styles) ... */
-
 .sudoku-grid > div {
   /* ... (your existing styles for the cell) ... */
   position: relative; /* Important for positioning candidates */
